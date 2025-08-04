@@ -3,6 +3,11 @@ import Search from "./components/Search";
 import heroImage from "/hero-img.png";
 import { API_BASE_URL, API_OPTIONS } from "./api";
 import axios from "axios";
+import {
+  getTrendingMovies,
+  updateSearchCount,
+} from "./appwrite";
+import { useDebounce } from "react-use";
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -11,6 +16,10 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [debounceSearchTerm, setDebounceSearchTerm] = useState("");
+  const [trendingMovies, setTrendingMovies] = useState([]);
+
+  useDebounce(() => setDebounceSearchTerm(searchTerm), 1000, [searchTerm]);
 
   const fetchMovies = async (query = "", page = 1) => {
     setIsLoading(true);
@@ -26,6 +35,10 @@ const App = () => {
         const data = response.data;
         setMovieList(data.results || []);
         setTotalPages(data.total_pages || 0);
+
+        if (query && data.results.length > 0) {
+          await updateSearchCount(query, data.results[0]);
+        }
       } else {
         setErrorMessage("Failed to fetch data");
         setMovieList([]);
@@ -39,16 +52,26 @@ const App = () => {
     }
   };
 
-  console.log(totalPages);
+  const loadTrendingMovies = async () => {
+    try {
+      const movies = await getTrendingMovies();
+      setTrendingMovies(movies);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
-    fetchMovies(searchTerm, currentPage);
-  }, [searchTerm, currentPage]);
+    fetchMovies(debounceSearchTerm, currentPage);
+  }, [debounceSearchTerm, currentPage]);
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchTerm]);
-
+  }, [debounceSearchTerm]);
+  
+  useEffect(() => {
+    loadTrendingMovies();
+  }, []);
   return (
     <main>
       <div className="pattern" />
@@ -61,6 +84,21 @@ const App = () => {
           </h1>
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </header>
+
+        {trendingMovies.length > 0 && (
+          <section className="trending">
+            <h2>Trending Movies</h2>
+
+            <ul>
+              {trendingMovies.map((movie, index) => (
+                <li key={movie.$id}>
+                  <p>{index + 1}</p>
+                  <img src={movie.poster_url} alt={movie.title} />
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         <section className="all-movies mt-20">
           <h2>All Movies</h2>
