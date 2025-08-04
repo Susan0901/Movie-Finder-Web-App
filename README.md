@@ -1,12 +1,44 @@
-# React + Vite
+Sure! Here's a simple but clear README file for your Movie Finder App that uses TMDB API with search and pagination:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Movie Finder App
 
-Currently, two official plugins are available:
+A React-based web application that lets you search for movies and browse popular titles using The Movie Database (TMDB) API. The app includes search functionality with pagination to easily navigate through results.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- Search movies by title
+- Browse popular movies
+- Pagination for search results and popular movies
+- Responsive and user-friendly UI
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Technologies Used
+
+- React
+- TMDB API
+- CSS (or Tailwind, Bootstrap, etc. — specify your styling here)
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js and npm installed on your machine
+- TMDB API key (get it from [TMDB website](https://www.themoviedb.org/documentation/api))
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Susan0901/Movie-Finder-Web-App.git
+Navigate to the project directory:
+
+cd movie-finder-app
+Install dependencies:
+
+npm install
+Create a .env file in the root folder and add your TMDB API key:
+
+VITE_TMDB_API_KEY=your_api_key_here
+Start the development server:
+
+npm start
+The app should now be running on http://localhost:5173.
