@@ -29,16 +29,17 @@ A React-based web application that lets you search for movies and browse popular
 1. Clone the repository:
    ```bash
    git clone https://github.com/Susan0901/Movie-Finder-Web-App.git
+
 Navigate to the project directory:
+- cd movie-finder-app
 
-cd movie-finder-app
 Install dependencies:
+- npm install
 
-npm install
 Create a .env file in the root folder and add your TMDB API key:
+- VITE_TMDB_API_KEY=your_api_key_here
 
-VITE_TMDB_API_KEY=your_api_key_here
 Start the development server:
+- npm start
 
-npm start
 The app should now be running on http://localhost:5173.
