@@ -1,5 +1,3 @@
-Sure! Here's a simple but clear README file for your Movie Finder App that uses TMDB API with search and pagination:
-
 # Movie Finder App
 
 A React-based web application that lets you search for movies and browse popular titles using The Movie Database (TMDB) API. The app includes search functionality with pagination to easily navigate through results.
